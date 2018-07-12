@@ -35,6 +35,7 @@ app.post('/mac', urlencodedParser, function (req, res) {
         if (err) throw err;
         var dbo = db.db(dbName);
         var mac = req.body.mac;
+        mac = mac.trim();
         mac = mac.replace(/-*:*/g, '');
         mac = mac.toUpperCase();
         mac = mac.substring(0, 6);
