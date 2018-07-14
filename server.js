@@ -33,7 +33,6 @@ app.post('/mac', urlencodedParser, function (req, res) {
 
     MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
         if (err) throw err;
-        var dbo = db.db(dbName);
         var mac = req.body.mac;
         mac = mac.trim();
         mac = mac.replace(/-*:*/g, '');
@@ -41,11 +40,11 @@ app.post('/mac', urlencodedParser, function (req, res) {
         mac = mac.substring(0, 6);
         console.log(mac);
         var whereStr = {"company_id": mac};  // 查询条件
-        dbo.collection("oui").find(whereStr, { _id: 0}).toArray(function(err, result) {
+        db.db().collection("oui").find(whereStr, { _id: 0}).toArray(function(err, result) {
             if (err) throw err;
             res.json(JSON.stringify(result));
-            db.close();
         });
+        db.close();
     });
 
 })
