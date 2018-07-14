@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://$user:$pass@$hoste:$port/mac2corp";
+var url = "mongodb://$user:$pass@$host:$port/mac2corp";
 var dbName = "mac2corp";
 var serverport = 8080;
 
@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/mac', urlencodedParser, function (req, res) {
-     var mac = req.body.mac;
+    var mac = req.body.mac;
 
     MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
         if (err) throw err;
@@ -41,9 +41,9 @@ app.post('/mac', urlencodedParser, function (req, res) {
         mac = mac.substring(0, 6);
         console.log(mac);
         var whereStr = {"company_id": mac};  // 查询条件
-        dbo.collection("oui").find(whereStr, { _id: 0}).toArray(function(err, resoult) {
+        dbo.collection("oui").find(whereStr, { _id: 0}).toArray(function(err, result) {
             if (err) throw err;
-            res.json(JSON.stringify(resoult));
+            res.json(JSON.stringify(result));
             db.close();
         });
     });
