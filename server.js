@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://$user:$pass@$host:$port/mac2corp";
+var url = process.env.MONGODB_URL || "mongodb://$user:$pass@$host:$port/mac2corp";
 var dbName = "mac2corp";
 var serverport = 8080;
 
